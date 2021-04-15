@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "3fc16a93-8e96-4451-9d91-c62c5e1ce1ec",
+		"name": "BebasAkuntasi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get token by user login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"",
+							"if(response !== null){",
+							"    tests[\"Is Success\"] = response.success === true;",
+							"    if(response.success){",
+							"        tests[\"Body contains access_token\"] = responseBody.has(\"access_token\");",
+							"        pm.environment.set(\"access_token\",response.access_token);",
+							"    }",
+							"    else{",
+							"        var msg = \"code: \" + response.code + \" msg: \" + response.msg;",
+							"        tests[msg] = false;",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "leo@bebasakuntasi.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "device_name",
+							"value": "Iphone",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MzJkNjQyNi05MjJjLTQ5YmMtODU5ZC02OWFjNGI3OGI4ZmEiLCJqdGkiOiJkOGUzOTMxODIzNzU4YTYwZTI2YTFiMzI1YTNlODAyMzdkZmE4ZjI2OTc0ODIyOGI3ODE4NWNhMDEyNWRkYmRmY2E1YmRiNjFlMTRlNmNmNyIsImlhdCI6MTYxODIzMTYzNC40Mzg5MjksIm5iZiI6MTYxODIzMTYzNC40Mzg5MzMsImV4cCI6MTY0OTc2NzYzNC40MzM0OCwic3ViIjoiMSIsInNjb3BlcyI6W119.iFBVRKSz_Dfq-wrpvxXsqa2FKL3ybDkgjQf3eU06P-3dCqw5SSzvfL9szBaN3iNeOzdcjYVj1XP8hxamQckP5MApeThq6DzyJGzl6jDT0tdStjkul04YgQVcC8_P1tUk5fWlkLJizQ1Qwony0T1W_fwlQGrnBH4t-Pt7dN4YbNQCENbhATneL3k-vLGIE-FxTfwzwrCB67jN301ptrNM1MzkXnJej9ybi5zpaK_KNTMDn9dKW675qlsrxKpP5wrFVV4s7Na2dZ0cJJuffL6kY7rg7bzt9xXOb__sExFBkr-D2UsJc0hdjnLif0ChL6nxVcriC5uwVYgGgTcicjG30Vg5qusFPU_bobwB0DHdJ6SuGncC5NE6O3MN0D8mJZHh77Scw_81-OO34Er_HoWQizCQYOXM6JtXUtMVu3WilPXa2jjOAiP_qxfV7bFq0RC9zpufziAdmxjX3IMf3kz3LSkWXHpI4H0VPNODMQOvD8i2DS5KkPJfyoGc4IQ39kQeMo6tZixgmVwWKPya-_E8vn6G3TZgJV71awQTOdynTOIlbFhS4hLZnXJhsULaxIinblxsO-kUCpB2r3y5x2_-gkqibKJvpDykpkbmPSoX2iAF3wBxWGkx3GoIOj6Cfe6zvkcMk-6WL5IxzU0fY2_mrDQyOSevA6MCyHcmROaKDfI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test3@email.com",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Hendra",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "hello",
+							"type": "text"
+						},
+						{
+							"key": "position",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": " status",
+							"value": "active",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "leo",
+							"type": "text"
+						},
+						{
+							"key": "position",
+							"value": "Admin2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/users/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:7272/api/users/3",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"3"
+					]
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		}
+	]
+}
