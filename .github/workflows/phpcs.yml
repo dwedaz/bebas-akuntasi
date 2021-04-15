@@ -1,4 +1,4 @@
-name: "CI"
+name: "CS"
 
 on:
   pull_request:
