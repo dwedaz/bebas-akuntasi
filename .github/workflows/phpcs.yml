@@ -1,4 +1,4 @@
-name: "CS"
+name: "PHP CodeSnif"
 
 on:
   pull_request:
