@@ -34,7 +34,8 @@ class AuthController extends Controller
    {
         $validator = Validator::make($request->all(), [
             'email'=>'email|required',
-            'password'=>'required'
+            'password'=>'required',
+            'device_name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -53,9 +54,10 @@ class AuthController extends Controller
             return response(['success' => false, 'message'=>'Invalid credentials']);
         }
 
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $accessToken = auth()->user()->createToken($request->device_name)->plainTextToken;
 
         return response(['success' => true, 'user' => auth()->user(), 'access_token' => $accessToken]);
 
    }
 }
+
